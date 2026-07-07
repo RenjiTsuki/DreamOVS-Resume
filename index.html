@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Federal Service Portfolio | Roblox USA</title>
+    <style>
+        /* Global & Theme Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+
+        /* Top Navigation */
+        nav {
+            background-color: #0d233a;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav .logo {
+            color: #fff;
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Disclaimer Banner mimicking the screenshot */
+        .disclaimer-banner {
+            background-color: #fff3cd;
+            color: #856404;
+            text-align: center;
+            padding: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            border-bottom: 1px solid #ffeeba;
+            text-transform: uppercase;
+        }
+
+        /* Hero Banner */
+        .hero {
+            background: linear-gradient(135deg, #103057 0%, #8b1e21 100%);
+            color: white;
+            padding: 50px 40px;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .hero h1 {
+            margin: 0 0 10px 0;
+            font-size: 32px;
+        }
+        .hero p {
+            font-size: 16px;
+            max-width: 800px;
+            line-height: 1.6;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        /* Interactive Filter Control Panel */
+        .filter-controls {
+            margin: 20px;
+            padding: 15px 20px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e1e4e8;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .filter-label {
+            font-weight: bold;
+            color: #103057;
+        }
+        .filter-btn {
+            background-color: #f0f2f5;
+            border: 1px solid #ccc;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .filter-btn:hover {
+            background-color: #e4e6e9;
+        }
+        .filter-btn.active {
+            background-color: #103057;
+            color: white;
+            border-color: #103057;
+        }
+
+        /* Resume Sections Container */
+        .resume-container {
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .resume-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #e1e4e8;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .resume-section h2 {
+            margin-top: 0;
+            color: #103057;
+            border-bottom: 2px solid #e1e4e8;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Role Item Rows */
+        .role-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid #f0f2f5;
+            transition: background 0.2s;
+        }
+        .role-item:last-child {
+            border-bottom: none;
+        }
+        .role-item:hover {
+            background-color: #f8f9fa;
+        }
+        .role-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        /* Badges for Current vs Former */
+        .badge {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .badge.current {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .badge.former {
+            background-color: #e2e3e5;
+            color: #383d41;
+            border: 1px solid #d6d8db;
+        }
+
+        /* Hidden class used by the filter script */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="disclaimer-banner">
+        ⚠️ NOT AFFILIATED WITH THE UNITED STATES GOVERNMENT. FOR ROLEPLAY AND EDUCATIONAL USE ONLY.
+    </div>
+
+    <nav>
+        <div class="logo">RxUSAJobs & Career Portfolio</div>
+    </nav>
+
+    <div class="hero">
+        <h1>DreamOversight — Federal Service Record</h1>
+        <p>Centralized database tracking executive, legislative, and departmental assignments across specialized communities including DUSA, USAR, and RxUSA.</p>
+    </div>
+
+    <div class="filter-controls">
+        <span class="filter-label">Filter Status:</span>
+        <button class="filter-btn active" onclick="filterRoles('all')">Show All</button>
+        <button class="filter-btn" onclick="filterRoles('current')">Current Roles</button>
+        <button class="filter-btn" onclick="filterRoles('former')">Former Roles</button>
+    </div>
+
+    <div class="resume-container">
+
+        <div class="resume-section" id="dusa-section">
+            <h2>DUSA Archive & Service Record</h2>
+            
+            <div class="role-item" data-status="former">
+                <span class="role-title">President of the United States</span>
+                <span class="badge former">Former</span>
+            </div>
+            <div class="role-item" data-status="former">
+                <span class="role-title">Vice President of the United States</span>
+                <span class="badge former">Former</span>
+            </div>
+            <div class="role-item" data-status="former">
+                <span class="role-title">Secretary of Homeland Security</span>
+                <span class="badge former">Former</span>
+            </div>
+            <div class="role-item" data-status="former">
+                <span class="role-title">Secretary of State</span>
+                <span class="badge former">Former</span>
+            </div>
+            <div class="role-item" data-status="former">
+                <span class="role-title">OUSN Ambassador</span>
+                <span class="badge former">Former</span>
+            </div>
+            <div class="role-item" data-status="former">
+                <span class="role-title">Chief of Staff of the Secretary of State</span>
+                <span class="badge former">Former</span>
+            </div>
+            <div class="role-item" data-status="former">
+                <span class="role-title">Provost Marshal</span>
+                <span class="badge former">Former</span>
+            </div>
+            <div class="role-item" data-status="former">
+                <span class="role-title">Community Engagement Team</span>
+                <span class="badge former">Former</span>
+            </div>
+        </div>
+
+        <div class="resume-section" id="usar-section">
+            <h2>USAR Congressional & Departmental Record</h2>
+            
+            <div class="role-item" data-status="current">
+                <span class="role-title">Senator for Colorado</span>
+                <span class="badge current">Current</span>
+            </div>
+            <div class="role-item" data-status="current">
+                <span class="role-title">Senate Majority Leader</span>
+                <span class="badge current">Current</span>
+            </div>
+            <div class="role-item" data-status="current">
+                <span class="role-title">Deputy Clerk of the House of Representatives</span>
+                <span class="badge current">Current</span>
+            </div>
+            <div class="role-item" data-status="former">
+                <span class="role-title">Chief of Staff of the Office of the President Pro Tempore of the Senate</span>
+                <span class="badge former">Former</span>
+            </div>
+            <div class="role-item" data-status="former">
+                <span class="role-title">Chief of Staff of the Office of the Under Secretary of Defense for Personnel, Readiness & Policy</span>
+                <span class="badge former">Former</span>
+            </div>
+            <div class="role-item" data-status="former">
+                <span class="role-title">Assistant Secretary of Homeland Security for Public Affairs</span>
+                <span class="badge former">Former</span>
+            </div>
+            <div class="role-item" data-status="former">
+                <span class="role-title">Under Secretary of Defense for Policy</span>
+                <span class="badge former">Former</span>
+            </div>
+            <div class="role-item" data-status="former">
+                <span class="role-title">Under Secretary of Defense for Personnel & Readiness</span>
+                <span class="badge former">Former</span>
+            </div>
+            <div class="role-item" data-status="former">
+                <span class="role-title">Principal Deputy Inspector General for the Department of Homeland Security</span>
+                <span class="badge former">Former</span>
+            </div>
+            <div class="role-item" data-status="former">
+                <span class="role-title">Acting Inspector General for the Department of Homeland Security</span>
+                <span class="badge former">Former</span>
+            </div>
+            <div class="role-item" data-status="former">
+                <span class="role-title">Representative for Colorado's 1st</span>
+                <span class="badge former">Former</span>
+            </div>
+            <div class="role-item" data-status="former">
+                <span class="role-title">House Chair of the Reform Caucus</span>
+                <span class="badge former">Former</span>
+            </div>
+            <div class="role-item" data-status="former">
+                <span class="role-title">House Majority Whip</span>
+                <span class="badge former">Former</span>
+            </div>
+            <div class="role-item" data-status="former">
+                <span class="role-title">House Majority Leader</span>
+                <span class="badge former">Former</span>
+            </div>
+            <div class="role-item" data-status="former">
+                <span class="role-title">Speaker Pro Tempore of the House</span>
+                <span class="badge former">Former</span>
+            </div>
+            <div class="role-item" data-status="former">
+                <span class="role-title">Assistant Senate Sergeant at Arms</span>
+                <span class="badge former">Former</span>
+            </div>
+            <div class="role-item" data-status="former">
+                <span class="role-title">Senate Executive Clerk</span>
+                <span class="badge former">Former</span>
+            </div>
+        </div>
+
+        <div class="resume-section" id="rxusa-section">
+            <h2>RxUSA Commerce & Regulatory Record</h2>
+            
+            <div class="role-item" data-status="current">
+                <span class="role-title">License Officer, Department of Commerce</span>
+                <span class="badge current">Current</span>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function filterRoles(status) {
+            // Manage active button state colors
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Select all rows with a role
+            const roles = document.querySelectorAll('.role-item');
+            
+            roles.forEach(role => {
+                if (status === 'all') {
+                    role.classList.remove('hidden');
+                } else {
+                    // Match element data-status attribute to chosen filter
+                    if (role.getAttribute('data-status') === status) {
+                        role.classList.remove('hidden');
+                    } else {
+                        role.classList.add('hidden');
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
