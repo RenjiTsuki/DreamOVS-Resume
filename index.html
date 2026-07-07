@@ -28,18 +28,6 @@
             font-weight: bold;
             letter-spacing: 0.5px;
         }
-        
-        /* Disclaimer Banner mimicking the screenshot */
-        .disclaimer-banner {
-            background-color: #fff3cd;
-            color: #856404;
-            text-align: center;
-            padding: 8px;
-            font-size: 12px;
-            font-weight: bold;
-            border-bottom: 1px solid #ffeeba;
-            text-transform: uppercase;
-        }
 
         /* Hero Banner */
         .hero {
@@ -62,7 +50,7 @@
             opacity: 0.9;
         }
 
-        /* Interactive Filter Control Panel */
+        /* Filter Controls */
         .filter-controls {
             margin: 20px;
             padding: 15px 20px;
@@ -95,14 +83,13 @@
             border-color: #103057;
         }
 
-        /* Resume Sections Container */
+        /* Resume Sections */
         .resume-container {
             margin: 20px;
             display: flex;
             flex-direction: column;
             gap: 30px;
         }
-
         .resume-section {
             background: white;
             padding: 30px;
@@ -118,20 +105,39 @@
             margin-bottom: 20px;
         }
 
-        /* Role Item Rows */
+        /* Role Wrapper for Accordion layout */
+        .role-wrapper {
+            border-bottom: 1px solid #f0f2f5;
+        }
+        .role-wrapper:last-child {
+            border-bottom: none;
+        }
+
+        /* Clickable Header Area */
         .role-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 15px;
-            border-bottom: 1px solid #f0f2f5;
+            padding: 15px;
+            cursor: pointer;
+            user-select: none;
             transition: background 0.2s;
-        }
-        .role-item:last-child {
-            border-bottom: none;
         }
         .role-item:hover {
             background-color: #f8f9fa;
+        }
+        .role-title-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .role-arrow {
+            font-size: 12px;
+            color: #aaa;
+            transition: transform 0.2s;
+        }
+        .role-wrapper.active .role-arrow {
+            transform: rotate(90deg);
         }
         .role-title {
             font-size: 16px;
@@ -139,7 +145,7 @@
             color: #2c3e50;
         }
 
-        /* Badges for Current vs Former */
+        /* Badges */
         .badge {
             padding: 4px 10px;
             border-radius: 4px;
@@ -158,7 +164,26 @@
             border: 1px solid #d6d8db;
         }
 
-        /* Hidden class used by the filter script */
+        /* Expandable Content Area */
+        .role-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.25s ease-out;
+            background-color: #fafbfc;
+        }
+        .role-details-content {
+            padding: 15px 40px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
+            border-top: 1px dotted #e1e4e8;
+        }
+        .role-details-content ul {
+            margin: 5px 0 0 0;
+            padding-left: 20px;
+        }
+
+        /* Utility Hidden Class */
         .hidden {
             display: none !important;
         }
@@ -188,143 +213,423 @@
         <div class="resume-section" id="dusa-section">
             <h2>DUSA Service Record</h2>
             
-            <div class="role-item" data-status="former">
-                <span class="role-title">President of the United States</span>
-                <span class="badge former">Former</span>
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">President of the United States</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content">
+                        <strong>Duration:</strong> 2 Months (Term Dates Here)<br>
+                        <strong>Administration/Session:</strong> N/A<br>
+                        <strong>Key Accomplishments:</strong>
+                        <ul>
+                            <li>Led the executive branch and coordinated inter-agency operations.</li>
+                            <li>Implemented community outreach initiatives and managed cabinet appointments.</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="role-item" data-status="former">
-                <span class="role-title">Vice President of the United States</span>
-                <span class="badge former">Former</span>
+
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">Vice President of the United States</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content">
+                        <strong>Duration:</strong> 1 Month (Term Dates Here)<br>
+                        <strong>Key Accomplishments:</strong>
+                        <ul>
+                            <li>Assisted the President in daily operations and presided over legislative sessions.</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="role-item" data-status="former">
-                <span class="role-title">Secretary of Homeland Security</span>
-                <span class="badge former">Former</span>
+
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">Secretary of Homeland Security</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content">
+                        <strong>Duration:</strong> Weeks/Months served...<br>
+                        <strong>Key Accomplishments:</strong>
+                        <ul>
+                            <li>Managed homeland security protocols and law enforcement coordination.</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="role-item" data-status="former">
-                <span class="role-title">Secretary of State</span>
-                <span class="badge former">Former</span>
+
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">Secretary of State</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content">
+                        <strong>Duration:</strong> Dates...
+                    </div>
+                </div>
             </div>
-            <div class="role-item" data-status="former">
-                <span class="role-title">OUSN Ambassador</span>
-                <span class="badge former">Former</span>
+
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">OUSN Ambassador</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
+                </div>
             </div>
-            <div class="role-item" data-status="former">
-                <span class="role-title">Chief of Staff of the Secretary of State</span>
-                <span class="badge former">Former</span>
+
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">Chief of Staff of the Secretary of State</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
+                </div>
             </div>
-            <div class="role-item" data-status="former">
-                <span class="role-title">Provost Marshal</span>
-                <span class="badge former">Former</span>
+
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">Provost Marshal</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
+                </div>
             </div>
-            <div class="role-item" data-status="former">
-                <span class="role-title">Community Engagement Team</span>
-                <span class="badge former">Former</span>
+
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">Community Engagement Team</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
+                </div>
             </div>
+
         </div>
 
         <div class="resume-section" id="usar-section">
             <h2>USAR Service Record</h2>
             
-            <div class="role-item" data-status="current">
-                <span class="role-title">Senator for Colorado</span>
-                <span class="badge current">Current</span>
+            <div class="role-wrapper" data-status="current">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">Senator for Colorado</span>
+                    </div>
+                    <span class="badge current">Current</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content">
+                        <strong>Duration:</strong> [Current Assignment]<br>
+                        <strong>Key Focus:</strong> Representing the constituency of Colorado in the Senate chamber.
+                    </div>
+                </div>
             </div>
-            <div class="role-item" data-status="current">
-                <span class="role-title">Senate Majority Leader</span>
-                <span class="badge current">Current</span>
+
+            <div class="role-wrapper" data-status="current">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">Senate Majority Leader</span>
+                    </div>
+                    <span class="badge current">Current</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content"><strong>Duration:</strong> [Current Assignment]</div>
+                </div>
             </div>
-            <div class="role-item" data-status="current">
-                <span class="role-title">Deputy Clerk of the House of Representatives</span>
-                <span class="badge current">Current</span>
+
+            <div class="role-wrapper" data-status="current">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">Deputy Clerk of the House of Representatives</span>
+                    </div>
+                    <span class="badge current">Current</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content"><strong>Duration:</strong> [Current Assignment]</div>
+                </div>
             </div>
-            <div class="role-item" data-status="former">
-                <span class="role-title">Chief of Staff of the Office of the President Pro Tempore of the Senate</span>
-                <span class="badge former">Former</span>
+
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">Chief of Staff of the Office of the President Pro Tempore of the Senate</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
+                </div>
             </div>
-            <div class="role-item" data-status="former">
-                <span class="role-title">Chief of Staff of the Office of the Under Secretary of Defense for Personnel, Readiness & Policy</span>
-                <span class="badge former">Former</span>
+
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">Chief of Staff of the Office of the Under Secretary of Defense for Personnel, Readiness & Policy</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
+                </div>
             </div>
-            <div class="role-item" data-status="former">
-                <span class="role-title">Assistant Secretary of Homeland Security for Public Affairs</span>
-                <span class="badge former">Former</span>
+
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">Assistant Secretary of Homeland Security for Public Affairs</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
+                </div>
             </div>
-            <div class="role-item" data-status="former">
-                <span class="role-title">Under Secretary of Defense for Policy</span>
-                <span class="badge former">Former</span>
+
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">Under Secretary of Defense for Policy</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
+                </div>
             </div>
-            <div class="role-item" data-status="former">
-                <span class="role-title">Under Secretary of Defense for Personnel & Readiness</span>
-                <span class="badge former">Former</span>
+
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">Under Secretary of Defense for Personnel & Readiness</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
+                </div>
             </div>
-            <div class="role-item" data-status="former">
-                <span class="role-title">Principal Deputy Inspector General for the Department of Homeland Security</span>
-                <span class="badge former">Former</span>
+
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">Principal Deputy Inspector General for the Department of Homeland Security</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
+                </div>
             </div>
-            <div class="role-item" data-status="former">
-                <span class="role-title">Acting Inspector General for the Department of Homeland Security</span>
-                <span class="badge former">Former</span>
+
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">Acting Inspector General for the Department of Homeland Security</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
+                </div>
             </div>
-            <div class="role-item" data-status="former">
-                <span class="role-title">Representative for Colorado's 1st</span>
-                <span class="badge former">Former</span>
+
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">Representative for Colorado's 1st</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
+                </div>
             </div>
-            <div class="role-item" data-status="former">
-                <span class="role-title">House Chair of the Reform Caucus</span>
-                <span class="badge former">Former</span>
+
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">House Chair of the Reform Caucus</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
+                </div>
             </div>
-            <div class="role-item" data-status="former">
-                <span class="role-title">House Majority Whip</span>
-                <span class="badge former">Former</span>
+
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">House Majority Whip</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
+                </div>
             </div>
-            <div class="role-item" data-status="former">
-                <span class="role-title">House Majority Leader</span>
-                <span class="badge former">Former</span>
+
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">House Majority Leader</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
+                </div>
             </div>
-            <div class="role-item" data-status="former">
-                <span class="role-title">Speaker Pro Tempore of the House</span>
-                <span class="badge former">Former</span>
+
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">Speaker Pro Tempore of the House</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
+                </div>
             </div>
-            <div class="role-item" data-status="former">
-                <span class="role-title">Assistant Senate Sergeant at Arms</span>
-                <span class="badge former">Former</span>
+
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">Assistant Senate Sergeant at Arms</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
+                </div>
             </div>
-            <div class="role-item" data-status="former">
-                <span class="role-title">Senate Executive Clerk</span>
-                <span class="badge former">Former</span>
+
+            <div class="role-wrapper" data-status="former">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">Senate Executive Clerk</span>
+                    </div>
+                    <span class="badge former">Former</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
+                </div>
             </div>
         </div>
 
         <div class="resume-section" id="rxusa-section">
             <h2>RxUSA Service Record</h2>
             
-            <div class="role-item" data-status="current">
-                <span class="role-title">License Officer, Department of Commerce</span>
-                <span class="badge current">Current</span>
+            <div class="role-wrapper" data-status="current">
+                <div class="role-item" onclick="toggleDetails(this)">
+                    <div class="role-title-group">
+                        <span class="role-arrow">▶</span>
+                        <span class="role-title">License Officer, Department of Commerce</span>
+                    </div>
+                    <span class="badge current">Current</span>
+                </div>
+                <div class="role-details">
+                    <div class="role-details-content">
+                        <strong>Duration:</strong> [Current Assignment]<br>
+                        <strong>Key Accomplishments:</strong>
+                        <ul>
+                            <li>Processing official business and commerce licensing.</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
     </div>
 
     <script>
+        // Interactive Accordion Toggle
+        function toggleDetails(element) {
+            const wrapper = element.parentElement;
+            const details = element.nextElementSibling;
+            
+            wrapper.classList.toggle('active');
+            
+            if (wrapper.classList.contains('active')) {
+                details.style.maxHeight = details.scrollHeight + "px";
+            } else {
+                details.style.maxHeight = "0px";
+            }
+        }
+
+        // Dropdown Filtering System
         function filterRoles(status) {
-            // Manage active button state colors
             const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
 
-            // Select all rows with a role
-            const roles = document.querySelectorAll('.role-item');
+            // Select the role wrappers rather than item headers
+            const wrappers = document.querySelectorAll('.role-wrapper');
             
-            roles.forEach(role => {
+            wrappers.forEach(wrapper => {
+                // Collapse open cards when switching views
+                wrapper.classList.remove('active');
+                wrapper.querySelector('.role-details').style.maxHeight = "0px";
+
                 if (status === 'all') {
-                    role.classList.remove('hidden');
+                    wrapper.classList.remove('hidden');
                 } else {
-                    // Match element data-status attribute to chosen filter
-                    if (role.getAttribute('data-status') === status) {
-                        role.classList.remove('hidden');
+                    if (wrapper.getAttribute('data-status') === status) {
+                        wrapper.classList.remove('hidden');
                     } else {
-                        role.classList.add('hidden');
+                        wrapper.classList.add('hidden');
                     }
                 }
             });
