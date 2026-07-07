@@ -105,7 +105,7 @@
             margin-bottom: 20px;
         }
 
-        /* Role Wrapper for Accordion layout */
+        /* Role Wrapper (For Filter & Border consistency) */
         .role-wrapper {
             border-bottom: 1px solid #f0f2f5;
         }
@@ -113,19 +113,22 @@
             border-bottom: none;
         }
 
-        /* Clickable Header Area */
+        /* Clickable Header Area (USAR & RxUSA) */
         .role-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px;
-            cursor: pointer;
-            user-select: none;
             transition: background 0.2s;
         }
-        .role-item:hover {
+        .clickable {
+            cursor: pointer;
+            user-select: none;
+        }
+        .clickable:hover {
             background-color: #f8f9fa;
         }
+        
         .role-title-group {
             display: flex;
             align-items: center;
@@ -214,138 +217,76 @@
             <h2>DUSA Service Record</h2>
             
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item">
                     <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
                         <span class="role-title">President of the United States</span>
                     </div>
                     <span class="badge former">Former</span>
                 </div>
-                <div class="role-details">
-                    <div class="role-details-content">
-                        <strong>Duration:</strong> 2 Months (Term Dates Here)<br>
-                        <strong>Administration/Session:</strong> N/A<br>
-                        <strong>Key Accomplishments:</strong>
-                        <ul>
-                            <li>Led the executive branch and coordinated inter-agency operations.</li>
-                            <li>Implemented community outreach initiatives and managed cabinet appointments.</li>
-                        </ul>
-                    </div>
-                </div>
             </div>
-
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item">
                     <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
                         <span class="role-title">Vice President of the United States</span>
                     </div>
                     <span class="badge former">Former</span>
                 </div>
-                <div class="role-details">
-                    <div class="role-details-content">
-                        <strong>Duration:</strong> 1 Month (Term Dates Here)<br>
-                        <strong>Key Accomplishments:</strong>
-                        <ul>
-                            <li>Assisted the President in daily operations and presided over legislative sessions.</li>
-                        </ul>
-                    </div>
-                </div>
             </div>
-
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item">
                     <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
                         <span class="role-title">Secretary of Homeland Security</span>
                     </div>
                     <span class="badge former">Former</span>
                 </div>
-                <div class="role-details">
-                    <div class="role-details-content">
-                        <strong>Duration:</strong> Weeks/Months served...<br>
-                        <strong>Key Accomplishments:</strong>
-                        <ul>
-                            <li>Managed homeland security protocols and law enforcement coordination.</li>
-                        </ul>
-                    </div>
-                </div>
             </div>
-
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item">
                     <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
                         <span class="role-title">Secretary of State</span>
                     </div>
                     <span class="badge former">Former</span>
                 </div>
-                <div class="role-details">
-                    <div class="role-details-content">
-                        <strong>Duration:</strong> Dates...
-                    </div>
-                </div>
             </div>
-
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item">
                     <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
                         <span class="role-title">OUSN Ambassador</span>
                     </div>
                     <span class="badge former">Former</span>
                 </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
-                </div>
             </div>
-
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item">
                     <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
                         <span class="role-title">Chief of Staff of the Secretary of State</span>
                     </div>
                     <span class="badge former">Former</span>
                 </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
-                </div>
             </div>
-
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item">
                     <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
                         <span class="role-title">Provost Marshal</span>
                     </div>
                     <span class="badge former">Former</span>
                 </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
-                </div>
             </div>
-
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item">
                     <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
                         <span class="role-title">Community Engagement Team</span>
                     </div>
                     <span class="badge former">Former</span>
                 </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> Dates...</div>
-                </div>
             </div>
-
         </div>
 
         <div class="resume-section" id="usar-section">
             <h2>USAR Service Record</h2>
             
             <div class="role-wrapper" data-status="current">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item clickable" onclick="toggleDetails(this)">
                     <div class="role-title-group">
                         <span class="role-arrow">▶</span>
                         <span class="role-title">Senator for Colorado</span>
@@ -361,7 +302,7 @@
             </div>
 
             <div class="role-wrapper" data-status="current">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item clickable" onclick="toggleDetails(this)">
                     <div class="role-title-group">
                         <span class="role-arrow">▶</span>
                         <span class="role-title">Senate Majority Leader</span>
@@ -374,7 +315,7 @@
             </div>
 
             <div class="role-wrapper" data-status="current">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item clickable" onclick="toggleDetails(this)">
                     <div class="role-title-group">
                         <span class="role-arrow">▶</span>
                         <span class="role-title">Deputy Clerk of the House of Representatives</span>
@@ -387,7 +328,7 @@
             </div>
 
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item clickable" onclick="toggleDetails(this)">
                     <div class="role-title-group">
                         <span class="role-arrow">▶</span>
                         <span class="role-title">Chief of Staff of the Office of the President Pro Tempore of the Senate</span>
@@ -400,7 +341,7 @@
             </div>
 
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item clickable" onclick="toggleDetails(this)">
                     <div class="role-title-group">
                         <span class="role-arrow">▶</span>
                         <span class="role-title">Chief of Staff of the Office of the Under Secretary of Defense for Personnel, Readiness & Policy</span>
@@ -413,7 +354,7 @@
             </div>
 
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item clickable" onclick="toggleDetails(this)">
                     <div class="role-title-group">
                         <span class="role-arrow">▶</span>
                         <span class="role-title">Assistant Secretary of Homeland Security for Public Affairs</span>
@@ -426,7 +367,7 @@
             </div>
 
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item clickable" onclick="toggleDetails(this)">
                     <div class="role-title-group">
                         <span class="role-arrow">▶</span>
                         <span class="role-title">Under Secretary of Defense for Policy</span>
@@ -439,7 +380,7 @@
             </div>
 
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item clickable" onclick="toggleDetails(this)">
                     <div class="role-title-group">
                         <span class="role-arrow">▶</span>
                         <span class="role-title">Under Secretary of Defense for Personnel & Readiness</span>
@@ -452,7 +393,7 @@
             </div>
 
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item clickable" onclick="toggleDetails(this)">
                     <div class="role-title-group">
                         <span class="role-arrow">▶</span>
                         <span class="role-title">Principal Deputy Inspector General for the Department of Homeland Security</span>
@@ -465,7 +406,7 @@
             </div>
 
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item clickable" onclick="toggleDetails(this)">
                     <div class="role-title-group">
                         <span class="role-arrow">▶</span>
                         <span class="role-title">Acting Inspector General for the Department of Homeland Security</span>
@@ -478,7 +419,7 @@
             </div>
 
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item clickable" onclick="toggleDetails(this)">
                     <div class="role-title-group">
                         <span class="role-arrow">▶</span>
                         <span class="role-title">Representative for Colorado's 1st</span>
@@ -491,7 +432,7 @@
             </div>
 
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item clickable" onclick="toggleDetails(this)">
                     <div class="role-title-group">
                         <span class="role-arrow">▶</span>
                         <span class="role-title">House Chair of the Reform Caucus</span>
@@ -504,7 +445,7 @@
             </div>
 
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item clickable" onclick="toggleDetails(this)">
                     <div class="role-title-group">
                         <span class="role-arrow">▶</span>
                         <span class="role-title">House Majority Whip</span>
@@ -517,7 +458,7 @@
             </div>
 
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item clickable" onclick="toggleDetails(this)">
                     <div class="role-title-group">
                         <span class="role-arrow">▶</span>
                         <span class="role-title">House Majority Leader</span>
@@ -530,7 +471,7 @@
             </div>
 
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item clickable" onclick="toggleDetails(this)">
                     <div class="role-title-group">
                         <span class="role-arrow">▶</span>
                         <span class="role-title">Speaker Pro Tempore of the House</span>
@@ -543,7 +484,7 @@
             </div>
 
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item clickable" onclick="toggleDetails(this)">
                     <div class="role-title-group">
                         <span class="role-arrow">▶</span>
                         <span class="role-title">Assistant Senate Sergeant at Arms</span>
@@ -556,7 +497,7 @@
             </div>
 
             <div class="role-wrapper" data-status="former">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item clickable" onclick="toggleDetails(this)">
                     <div class="role-title-group">
                         <span class="role-arrow">▶</span>
                         <span class="role-title">Senate Executive Clerk</span>
@@ -573,7 +514,7 @@
             <h2>RxUSA Service Record</h2>
             
             <div class="role-wrapper" data-status="current">
-                <div class="role-item" onclick="toggleDetails(this)">
+                <div class="role-item clickable" onclick="toggleDetails(this)">
                     <div class="role-title-group">
                         <span class="role-arrow">▶</span>
                         <span class="role-title">License Officer, Department of Commerce</span>
@@ -595,7 +536,7 @@
     </div>
 
     <script>
-        // Interactive Accordion Toggle
+        // Interactive Accordion Toggle (Only fires on elements with the 'clickable' class)
         function toggleDetails(element) {
             const wrapper = element.parentElement;
             const details = element.nextElementSibling;
@@ -615,13 +556,13 @@
             buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
 
-            // Select the role wrappers rather than item headers
             const wrappers = document.querySelectorAll('.role-wrapper');
             
             wrappers.forEach(wrapper => {
-                // Collapse open cards when switching views
+                // Collapse open cards when switching views safely
                 wrapper.classList.remove('active');
-                wrapper.querySelector('.role-details').style.maxHeight = "0px";
+                const detailBlock = wrapper.querySelector('.role-details');
+                if (detailBlock) detailBlock.style.maxHeight = "0px";
 
                 if (status === 'all') {
                     wrapper.classList.remove('hidden');
