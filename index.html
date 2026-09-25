@@ -1,66 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Federal Service Record | Roblox USA</title>
+
+<style>
+:root {
+  --navy: #0d233a;
+  --blue: #103057;
+  --background: #f4f6f9;
+  --card: #ffffff;
+  --text: #333;
+  --muted: #666;
+  --border: #e1e4e8;
+  --current-bg: #d4edda;
+  --current-text: #155724;
+  --former-bg: #e2e3e5;
+  --former-text: #383d41;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+}
+
+nav {
+  background: var(--navy);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+
+.hero {
+  background: linear-gradient(135deg, #0f4c81 0%, #0083b0 50%, #00b4db 100%);
+  color: white;
+  padding: 50px 40px;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 76, 129, .15);
+}
+
+.hero h1 {
+  margin: 0 0 10px;
+  font-size: 32px;
+}
+
+.hero p {
+  font-size: 16px;
+  max-width: 850px;
+  line-height: 1.6;
+  margin: 8px 0 0;
+  opacity: .92;
+}
+
+.filter-controls {
+  margin: 20px;
+  padding: 15px 20px;
+  background: var(--card);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  font-weight: 700;
+  color: var(--blue);
+  margin-right: 5px;
+}
+
+.filter-btn {
+  background: #f0f2f5;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: .2s ease;
+}
+
+.filter-btn:hover {
+  background: #e4e6e9;
+}
+
+.filter-btn.active {
+  background: var(--blue);
+  color: #fff;
+  border-color: var(--blue);
+}
+
+.resume-container {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.resume-section {
+  background: var(--card);
+  padding: 30px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 5px rgba(0,0,0,.02);
+}
+
+.resume-section h2 {
+  margin: 0 0 20px;
+  color: var(--blue);
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 10px;
+}
+
+.role-wrapper {
+  border-bottom: 1px solid #f0f2f5;
+}
+
+.role-wrapper:last-child {
+  border-bottom: none;
+}
+
+.role-wrapper.hidden {
+  display: none !important;
+}
+
+.role-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  transition: background .2s;
+}
+
+.clickable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.clickable:hover {
+  background: #f8f9fa;
+}
+
+.role-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.role-arrow {
+  font-size: 12px;
+  color: #aaa;
+  transition: transform .2s;
+  flex-shrink: 0;
+}
+
+.role-wrapper.active .role-arrow {
+  transform: rotate(90deg);
+}
+
+.role-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.badge.current {
+  background: var(--current-bg);
+  color: var(--current-text);
+  border: 1px solid #c3e6cb;
+}
+
+.badge.former {
+  background: var(--former-bg);
+  color: var(--former-text);
+  border: 1px solid #d6d8db;
+}
+
+.role-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .25s ease-out;
+  background: #fafbfc;
+}
+
+.role-details-content {
+  padding: 15px 40px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
+  border-top: 1px dotted var(--border);
+}
+
+.role-details-content ul {
+  margin: 5px 0 10px;
+  padding-left: 20px;
+}
+
+.role-details-content strong {
+  color: #2c3e50;
+}
+
+.empty-message {
+  color: var(--muted);
+  padding: 15px;
+  display: none;
+}
+
+@media (max-width: 650px) {
+  nav {
+    padding: 15px 20px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .hero {
+    padding: 30px 25px;
+    margin: 15px;
+  }
+
+  .hero h1 {
+    font-size: 25px;
+  }
+
+  .resume-container,
+  .filter-controls {
+    margin: 15px;
+  }
+
+  .resume-section {
+    padding: 20px 15px;
+  }
+
+  .role-item {
+    align-items: flex-start;
+    padding: 14px 5px;
+  }
+
+  .role-title {
+    font-size: 14px;
+  }
+
+  .role-details-content {
+    padding: 15px 20px;
+  }
+
+  .badge {
+    font-size: 10px;
+    padding: 4px 7px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">DreamOversight Resume</div>
+</nav>
+
+<header class="hero">
+  <h1>DreamOversight — Federal Service Record</h1>
+
+  <p>
+    Central database tracking executive, legislative, and departmental
+    assignments across communities including DUSA, USAR, and RxUSA.
+  </p>
+
+  <p>
+    Contact via Discord: Intel_dream or Email: dreamoversight1@gmail.com
+  </p>
+</header>
+
+<div class="filter-controls" aria-label="Resume filters">
+  <span class="filter-label">Filter Status:</span>
+
+  <button class="filter-btn active" data-filter="all">
+    Show All
+  </button>
+
+  <button class="filter-btn" data-filter="current">
+    Current Roles
+  </button>
+
+  <button class="filter-btn" data-filter="former">
+    Former Roles
+  </button>
+</div>
+
+<main class="resume-container">
+
+  <section class="resume-section" id="dusa-section">
+    <h2>DUSA Service Record</h2>
+
+    <div id="dusa-roles"></div>
+
+    <div class="empty-message" id="dusa-empty">
+      No roles match this filter.
+    </div>
+  </section>
+
+  <section class="resume-section" id="usar-section">
+    <h2>USAR Service Record</h2>
+
+    <div id="usar-roles"></div>
+
+    <div class="empty-message" id="usar-empty">
+      No roles match this filter.
+    </div>
+  </section>
+
+  <section class="resume-section" id="rxusa-section">
+    <h2>RxUSA Service Record</h2>
+
+    <div id="rxusa-roles"></div>
+
+    <div class="empty-message" id="rxusa-empty">
+      No roles match this filter.
+    </div>
+  </section>
+
+</main>
+
 <script>
+
 /* =========================================================
    EDIT YOUR RESUME HERE
-   Add, remove, or update role objects in this section.
-   status must be either "current" or "former".
    ========================================================= */
 
 const resumeData = {
+
   DUSA: [
+
     {
       title: "Group Ownership",
       status: "current"
     },
+
     {
       title: "President of the United States",
       status: "former"
     },
+
     {
       title: "Vice President of the United States",
       status: "former"
     },
+
     {
       title: "Secretary of Homeland Security",
       status: "former"
     },
+
     {
       title: "Secretary of State",
       status: "former"
     },
+
     {
       title: "OUSN Ambassador",
       status: "former"
     },
+
     {
       title: "Chief of Staff of the Secretary of State",
       status: "former"
     },
+
     {
       title: "Provost Marshal",
       status: "former"
     },
+
     {
       title: "Community Engagement Team",
       status: "former"
     }
+
   ],
 
   USAR: [
+
     {
       title: "President Pro Tempore of the United States Senate",
       status: "former",
       duration: "Aug. 2nd 2026 - Sep. 13th 2026"
     },
+
     {
       title: "Clerk of the House of Representatives",
       status: "former",
       duration: "Jul. 12th 2026 - Sep. 23rd 2026"
     },
+
     {
       title: "Trial Moderator",
       status: "former",
       duration: "Jul. 25th 2026 - Aug. 2nd 2026"
     },
+
     {
       title: "Senator for Colorado",
       status: "former",
@@ -72,52 +439,62 @@ const resumeData = {
         "Judiciary & Civil Affairs"
       ]
     },
+
     {
       title: "Senate Majority Leader",
       status: "former",
       duration: "Jul. 5th 2026 - Aug. 2nd 2026",
       caucus: "Progressive"
     },
+
     {
       title: "Deputy Clerk of the House of Representatives",
       status: "former",
       duration: "Jul. 5th 2026 - Jul. 12th 2026"
     },
+
     {
       title: "Master Patrol Officer, Metropolitan Police Dept.",
       status: "current",
       duration: "Jul. 1st 2026 - Current"
     },
+
     {
       title: "Assistant Director, Secret Service Emergency Response Team",
       status: "former",
       duration: "Jul. 24th 2026 - Aug. 2nd 2026"
     },
+
     {
       title: "Sergeant/2IC, Secret Service Emergency Response Team",
       status: "former",
       duration: "Jul. 7th 2026 - Jul. 24th 2026"
     },
+
     {
       title: "Chief of Staff of the Office of the President Pro Tempore of the Senate",
       status: "former",
       duration: "Sep. 28th 2025 - Oct. 7th 2025"
     },
+
     {
       title: "Chief of Staff of the Office of the Under Secretary of Defense for Personnel, Readiness & Policy",
       status: "former",
       duration: "Oct. 8th 2025 - Nov. 16th 2025"
     },
+
     {
       title: "Assistant Secretary of Homeland Security for Public Affairs",
       status: "former",
       duration: "Oct. 23rd 2025 - Mar. 29th 2026"
     },
+
     {
       title: "Under Secretary of Defense for Policy",
       status: "former",
       duration: "Nov. 16th 2025 - Nov. 29th 2025"
     },
+
     {
       title: "Under Secretary of Defense for Personnel & Readiness",
       status: "former",
@@ -126,54 +503,65 @@ const resumeData = {
         "Department of Defense Distinguished Civilian Service Award"
       ]
     },
+
     {
       title: "Principal Deputy Inspector General for the Department of Homeland Security",
       status: "former",
       duration: "Mar. 29th 2026 - May. 7th 2026"
     },
+
     {
       title: "Acting Inspector General for the Department of Homeland Security",
       status: "former",
       duration: "Mar. 30th 2026 - May. 7th 2026"
     },
+
     {
       title: "Representative for Colorado's 1st",
       status: "former",
       duration: "May. 8th 2026 - Jul. 5th 2026"
     },
+
     {
       title: "House Chair of the Reform Caucus",
       status: "former",
       duration: "Mar. 8th 2026 - May. 16th 2026"
     },
+
     {
       title: "House Majority Whip",
       status: "former",
       duration: "May. 16th 2026 - May. 20th 2026"
     },
+
     {
       title: "House Majority Leader",
       status: "former",
       duration: "May. 20th 2026 - Jul. 4th 2026"
     },
+
     {
       title: "Speaker Pro Tempore of the House",
       status: "former",
       duration: "May. 11th 2026 - Jun. 23rd 2026"
     },
+
     {
       title: "Assistant Senate Sergeant at Arms",
       status: "former",
       duration: "Jul. 1st 2026 - Jul. 5th 2026"
     },
+
     {
       title: "Senate Executive Clerk",
       status: "former",
       duration: "Jul. 1st 2026 - Jul. 5th 2026"
     }
+
   ],
 
   RxUSA: [
+
     {
       title: "License Officer, Department of Commerce",
       status: "current",
@@ -182,248 +570,398 @@ const resumeData = {
         "Processing official business and commerce licensing."
       ]
     },
+
     {
       title: "Senior Chief Petty Officer",
       status: "current",
       duration: "Sep. 24th 2026 - Current"
     },
+
     {
       title: "Clerk of the District Court",
       status: "current",
       duration: "Sep. 25th 2026 - Current"
     },
+
     {
       title: "Secretary of the United States Senate",
       status: "former",
       duration: "Aug. 8th 2026 - Sep. 20th 2026"
     }
+
   ]
+
 };
+
+
+/* =========================================================
+   CURRENT FILTER
+   ========================================================= */
 
 let activeFilter = "all";
 
 
 /* =========================================================
-   CHECK WHETHER A ROLE HAS ADDITIONAL DETAILS
+   CHECK IF ROLE HAS DETAILS
    ========================================================= */
 
 function hasDetails(role) {
+
   return Boolean(
     role.duration ||
-    role.committees?.length ||
+    (role.committees && role.committees.length) ||
     role.caucus ||
-    role.awards?.length ||
-    role.accomplishments?.length
+    (role.awards && role.awards.length) ||
+    (role.accomplishments && role.accomplishments.length)
   );
+
 }
 
 
 /* =========================================================
-   ADD TEXT TO ROLE DETAILS
+   ADD TEXT
    ========================================================= */
 
 function addText(container, label, value) {
+
   const line = document.createElement("div");
 
   const strong = document.createElement("strong");
+
   strong.textContent = label + " ";
 
   line.appendChild(strong);
-  line.appendChild(document.createTextNode(value));
+
+  line.appendChild(
+    document.createTextNode(value)
+  );
 
   container.appendChild(line);
+
 }
 
 
 /* =========================================================
-   ADD LISTS TO ROLE DETAILS
+   ADD LIST
    ========================================================= */
 
 function addList(container, label, items) {
+
   const heading = document.createElement("div");
 
   const strong = document.createElement("strong");
+
   strong.textContent = label;
 
   heading.appendChild(strong);
+
   container.appendChild(heading);
 
   const list = document.createElement("ul");
 
   items.forEach(item => {
+
     const listItem = document.createElement("li");
+
     listItem.textContent = item;
+
     list.appendChild(listItem);
+
   });
 
   container.appendChild(list);
+
 }
 
 
 /* =========================================================
-   CREATE A ROLE CARD
+   CREATE ROLE CARD
    ========================================================= */
 
 function createRoleCard(role) {
+
   const wrapper = document.createElement("div");
 
   wrapper.className = "role-wrapper";
+
   wrapper.dataset.status = role.status;
 
+
   const roleItem = document.createElement("div");
+
   roleItem.className = "role-item";
 
+
   const titleGroup = document.createElement("div");
+
   titleGroup.className = "role-title-group";
+
 
   const detailsAvailable = hasDetails(role);
 
+
   if (detailsAvailable) {
+
     roleItem.classList.add("clickable");
 
     roleItem.setAttribute("role", "button");
+
     roleItem.setAttribute("tabindex", "0");
-    roleItem.setAttribute("aria-expanded", "false");
+
+    roleItem.setAttribute(
+      "aria-expanded",
+      "false"
+    );
+
 
     const arrow = document.createElement("span");
 
     arrow.className = "role-arrow";
+
     arrow.textContent = "▶";
 
     titleGroup.appendChild(arrow);
+
   }
+
 
   const title = document.createElement("span");
 
   title.className = "role-title";
+
   title.textContent = role.title;
 
   titleGroup.appendChild(title);
 
+
   const badge = document.createElement("span");
 
   badge.className = `badge ${role.status}`;
+
   badge.textContent =
-    role.status === "current" ? "Current" : "Former";
+    role.status === "current"
+      ? "Current"
+      : "Former";
+
 
   roleItem.appendChild(titleGroup);
+
   roleItem.appendChild(badge);
 
   wrapper.appendChild(roleItem);
 
 
-  /* =========================================================
-     CREATE EXPANDABLE DETAILS
-     ========================================================= */
-
   if (detailsAvailable) {
+
     const details = document.createElement("div");
+
     details.className = "role-details";
 
+
     const content = document.createElement("div");
+
     content.className = "role-details-content";
 
+
     if (role.duration) {
-      addText(content, "Duration:", role.duration);
+
+      addText(
+        content,
+        "Duration:",
+        role.duration
+      );
+
     }
+
 
     if (role.caucus) {
-      addText(content, "Caucus:", role.caucus);
+
+      addText(
+        content,
+        "Caucus:",
+        role.caucus
+      );
+
     }
 
-    if (role.committees?.length) {
-      addList(content, "Committees:", role.committees);
+
+    if (
+      role.committees &&
+      role.committees.length
+    ) {
+
+      addList(
+        content,
+        "Committees:",
+        role.committees
+      );
+
     }
 
-    if (role.awards?.length) {
-      addList(content, "Awards:", role.awards);
+
+    if (
+      role.awards &&
+      role.awards.length
+    ) {
+
+      addList(
+        content,
+        "Awards:",
+        role.awards
+      );
+
     }
 
-    if (role.accomplishments?.length) {
+
+    if (
+      role.accomplishments &&
+      role.accomplishments.length
+    ) {
+
       addList(
         content,
         "Key Accomplishments:",
         role.accomplishments
       );
+
     }
 
+
     details.appendChild(content);
+
     wrapper.appendChild(details);
 
-    const toggle = () => toggleDetails(roleItem);
 
-    roleItem.addEventListener("click", toggle);
+    const toggle = () =>
+      toggleDetails(roleItem);
 
-    roleItem.addEventListener("keydown", event => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        toggle();
+
+    roleItem.addEventListener(
+      "click",
+      toggle
+    );
+
+
+    roleItem.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Enter" ||
+          event.key === " "
+        ) {
+
+          event.preventDefault();
+
+          toggle();
+
+        }
+
       }
-    });
+    );
+
   }
 
+
   return wrapper;
+
 }
 
 
 /* =========================================================
-   RENDER ALL RESUME SECTIONS
+   RENDER RESUME
    ========================================================= */
 
 function renderResume() {
+
   const sections = {
+
     DUSA: "dusa",
+
     USAR: "usar",
+
     RxUSA: "rxusa"
+
   };
+
 
   Object.entries(sections).forEach(
     ([sectionName, sectionId]) => {
-      const container = document.getElementById(
-        `${sectionId}-roles`
-      );
 
-      const emptyMessage = document.getElementById(
-        `${sectionId}-empty`
-      );
+      const container =
+        document.getElementById(
+          `${sectionId}-roles`
+        );
+
+
+      const emptyMessage =
+        document.getElementById(
+          `${sectionId}-empty`
+        );
+
 
       container.innerHTML = "";
 
-      const roles = resumeData[sectionName] || [];
+
+      const roles =
+        resumeData[sectionName] || [];
+
 
       roles.forEach(role => {
-        container.appendChild(createRoleCard(role));
+
+        container.appendChild(
+          createRoleCard(role)
+        );
+
       });
 
+
       emptyMessage.style.display =
-        roles.length ? "none" : "block";
+        roles.length
+          ? "none"
+          : "block";
+
     }
   );
 
+
   filterRoles(activeFilter);
+
 }
 
 
 /* =========================================================
-   TOGGLE ROLE DETAILS
+   TOGGLE DETAILS
    ========================================================= */
 
 function toggleDetails(roleItem) {
-  const wrapper = roleItem.parentElement;
-  const details = roleItem.nextElementSibling;
+
+  const wrapper =
+    roleItem.parentElement;
+
+
+  const details =
+    roleItem.nextElementSibling;
+
 
   if (!details) return;
 
-  const isActive = wrapper.classList.toggle("active");
+
+  const isActive =
+    wrapper.classList.toggle("active");
+
 
   roleItem.setAttribute(
     "aria-expanded",
     String(isActive)
   );
 
-  details.style.maxHeight = isActive
-    ? details.scrollHeight + "px"
-    : "0px";
+
+  details.style.maxHeight =
+    isActive
+      ? details.scrollHeight + "px"
+      : "0px";
+
 }
 
 
@@ -432,72 +970,141 @@ function toggleDetails(roleItem) {
    ========================================================= */
 
 function filterRoles(status) {
+
   activeFilter = status;
 
-  document.querySelectorAll(".filter-btn").forEach(button => {
-    button.classList.toggle(
-      "active",
-      button.dataset.filter === status
-    );
-  });
 
-  document.querySelectorAll(".resume-section").forEach(section => {
-    const wrappers = section.querySelectorAll(".role-wrapper");
+  document
+    .querySelectorAll(".filter-btn")
+    .forEach(button => {
 
-    const emptyMessage = section.querySelector(".empty-message");
+      button.classList.toggle(
+        "active",
+        button.dataset.filter === status
+      );
 
-    let visibleCount = 0;
-
-    wrappers.forEach(wrapper => {
-      const matches =
-        status === "all" ||
-        wrapper.dataset.status === status;
-
-      wrapper.classList.toggle("hidden", !matches);
-
-      if (matches) {
-        visibleCount++;
-      }
-
-      wrapper.classList.remove("active");
-
-      const details = wrapper.querySelector(".role-details");
-      const roleItem = wrapper.querySelector(".role-item");
-
-      if (details) {
-        details.style.maxHeight = "0px";
-      }
-
-      if (roleItem) {
-        roleItem.setAttribute(
-          "aria-expanded",
-          "false"
-        );
-      }
     });
 
-    if (emptyMessage) {
-      emptyMessage.style.display =
-        visibleCount === 0 ? "block" : "none";
-    }
-  });
+
+  document
+    .querySelectorAll(".resume-section")
+    .forEach(section => {
+
+      const wrappers =
+        section.querySelectorAll(
+          ".role-wrapper"
+        );
+
+
+      const emptyMessage =
+        section.querySelector(
+          ".empty-message"
+        );
+
+
+      let visibleCount = 0;
+
+
+      wrappers.forEach(wrapper => {
+
+        const matches =
+          status === "all" ||
+          wrapper.dataset.status === status;
+
+
+        wrapper.classList.toggle(
+          "hidden",
+          !matches
+        );
+
+
+        if (matches) {
+
+          visibleCount++;
+
+        }
+
+
+        wrapper.classList.remove(
+          "active"
+        );
+
+
+        const details =
+          wrapper.querySelector(
+            ".role-details"
+          );
+
+
+        const roleItem =
+          wrapper.querySelector(
+            ".role-item"
+          );
+
+
+        if (details) {
+
+          details.style.maxHeight =
+            "0px";
+
+        }
+
+
+        if (roleItem) {
+
+          roleItem.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+
+        }
+
+      });
+
+
+      if (emptyMessage) {
+
+        emptyMessage.style.display =
+          visibleCount === 0
+            ? "block"
+            : "none";
+
+      }
+
+    });
+
 }
 
 
 /* =========================================================
-   FILTER BUTTON EVENT LISTENERS
+   FILTER BUTTONS
    ========================================================= */
 
-document.querySelectorAll(".filter-btn").forEach(button => {
-  button.addEventListener("click", () => {
-    filterRoles(button.dataset.filter);
+document
+  .querySelectorAll(".filter-btn")
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        filterRoles(
+          button.dataset.filter
+        );
+
+      }
+    );
+
   });
-});
 
 
 /* =========================================================
-   INITIAL RENDER
+   START PAGE
    ========================================================= */
 
 renderResume();
+
 </script>
+
+</body>
+</html>
