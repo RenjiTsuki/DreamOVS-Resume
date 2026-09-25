@@ -1,693 +1,568 @@
-#<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Federal Service Record | Roblox USA</title>
-    <style>
-        /* Global & Theme Styles */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f6f9;
-            color: #333;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Federal Service Record | Roblox USA</title>
+<style>
+:root {
+  --navy: #0d233a;
+  --blue: #103057;
+  --background: #f4f6f9;
+  --card: #ffffff;
+  --text: #333;
+  --muted: #666;
+  --border: #e1e4e8;
+  --current-bg: #d4edda;
+  --current-text: #155724;
+  --former-bg: #e2e3e5;
+  --former-text: #383d41;
+}
 
-        /* Top Navigation */
-        nav {
-            background-color: #0d233a;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        nav .logo {
-            color: #fff;
-            font-size: 22px;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-        }
+* { box-sizing: border-box; }
 
-        /* Hero Banner */
-        .hero {
-            background: linear-gradient(135deg, #0f4c81 0%, #0083b0 50%, #00b4db 100%);
-            color: white;
-            padding: 50px 40px;
-            margin: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 76, 129, 0.15);
-        }
-        .hero h1 {
-            margin: 0 0 10px 0;
-            font-size: 32px;
-        }
-        .hero p {
-            font-size: 16px;
-            max-width: 800px;
-            line-height: 1.6;
-            margin: 0;
-            opacity: 0.9;
-        }
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+}
 
-        /* Filter Controls */
-        .filter-controls {
-            margin: 20px;
-            padding: 15px 20px;
-            background: white;
-            border-radius: 8px;
-            border: 1px solid #e1e4e8;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .filter-label {
-            font-weight: bold;
-            color: #103057;
-        }
-        .filter-btn {
-            background-color: #f0f2f5;
-            border: 1px solid #ccc;
-            padding: 8px 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s ease;
-        }
-        .filter-btn:hover {
-            background-color: #e4e6e9;
-        }
-        .filter-btn.active {
-            background-color: #103057;
-            color: white;
-            border-color: #103057;
-        }
+nav {
+  background: var(--navy);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-        /* Resume Sections */
-        .resume-container {
-            margin: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-        .resume-section {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            border: 1px solid #e1e4e8;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-        }
-        .resume-section h2 {
-            margin-top: 0;
-            color: #103057;
-            border-bottom: 2px solid #e1e4e8;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
+.logo {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
 
-        /* Role Wrapper (For Filter & Border consistency) */
-        .role-wrapper {
-            border-bottom: 1px solid #f0f2f5;
-        }
-        .role-wrapper:last-child {
-            border-bottom: none;
-        }
+.hero {
+  background: linear-gradient(135deg, #0f4c81 0%, #0083b0 50%, #00b4db 100%);
+  color: white;
+  padding: 50px 40px;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 76, 129, .15);
+}
 
-        /* Clickable Header Area (USAR & RxUSA) */
-        .role-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            transition: background 0.2s;
-        }
-        .clickable {
-            cursor: pointer;
-            user-select: none;
-        }
-        .clickable:hover {
-            background-color: #f8f9fa;
-        }
-        
-        .role-title-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .role-arrow {
-            font-size: 12px;
-            color: #aaa;
-            transition: transform 0.2s;
-        }
-        .role-wrapper.active .role-arrow {
-            transform: rotate(90deg);
-        }
-        .role-title {
-            font-size: 16px;
-            font-weight: 500;
-            color: #2c3e50;
-        }
+.hero h1 { margin: 0 0 10px; font-size: 32px; }
+.hero p { font-size: 16px; max-width: 850px; line-height: 1.6; margin: 8px 0 0; opacity: .92; }
 
-        /* Badges */
-        .badge {
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        .badge.current {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        .badge.former {
-            background-color: #e2e3e5;
-            color: #383d41;
-            border: 1px solid #d6d8db;
-        }
+.filter-controls {
+  margin: 20px;
+  padding: 15px 20px;
+  background: var(--card);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 
-        /* Expandable Content Area */
-        .role-details {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.25s ease-out;
-            background-color: #fafbfc;
-        }
-        .role-details-content {
-            padding: 15px 40px;
-            font-size: 14px;
-            line-height: 1.6;
-            color: #555;
-            border-top: 1px dotted #e1e4e8;
-        }
-        .role-details-content ul {
-            margin: 5px 0 0 0;
-            padding-left: 20px;
-        }
+.filter-label { font-weight: 700; color: var(--blue); margin-right: 5px; }
 
-        /* Utility Hidden Class */
-        .hidden {
-            display: none !important;
-        }
-    </style>
+.filter-btn {
+  background: #f0f2f5;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: .2s ease;
+}
+
+.filter-btn:hover { background: #e4e6e9; }
+.filter-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+.resume-container {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.resume-section {
+  background: var(--card);
+  padding: 30px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 5px rgba(0,0,0,.02);
+}
+
+.resume-section h2 {
+  margin: 0 0 20px;
+  color: var(--blue);
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 10px;
+}
+
+.role-wrapper { border-bottom: 1px solid #f0f2f5; }
+.role-wrapper:last-child { border-bottom: none; }
+.role-wrapper.hidden { display: none !important; }
+
+.role-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  transition: background .2s;
+}
+
+.clickable { cursor: pointer; user-select: none; }
+.clickable:hover { background: #f8f9fa; }
+
+.role-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.role-arrow {
+  font-size: 12px;
+  color: #aaa;
+  transition: transform .2s;
+  flex-shrink: 0;
+}
+
+.role-wrapper.active .role-arrow { transform: rotate(90deg); }
+.role-title { font-size: 16px; font-weight: 500; color: #2c3e50; }
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.badge.current { background: var(--current-bg); color: var(--current-text); border: 1px solid #c3e6cb; }
+.badge.former { background: var(--former-bg); color: var(--former-text); border: 1px solid #d6d8db; }
+
+.role-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .25s ease-out;
+  background: #fafbfc;
+}
+
+.role-details-content {
+  padding: 15px 40px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
+  border-top: 1px dotted var(--border);
+}
+
+.role-details-content ul { margin: 5px 0 10px; padding-left: 20px; }
+.role-details-content strong { color: #2c3e50; }
+
+.empty-message {
+  color: var(--muted);
+  padding: 15px;
+  display: none;
+}
+
+@media (max-width: 650px) {
+  nav { padding: 15px 20px; }
+  .logo { font-size: 18px; }
+  .hero { padding: 30px 25px; margin: 15px; }
+  .hero h1 { font-size: 25px; }
+  .resume-container, .filter-controls { margin: 15px; }
+  .resume-section { padding: 20px 15px; }
+  .role-item { align-items: flex-start; padding: 14px 5px; }
+  .role-title { font-size: 14px; }
+  .role-details-content { padding: 15px 20px; }
+  .badge { font-size: 10px; padding: 4px 7px; }
+}
+</style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">DreamOversight Resume</div>
-    </nav>
+<nav>
+  <div class="logo">DreamOversight Resume</div>
+</nav>
 
-    <div class="hero">
-        <h1>DreamOversight — Federal Service Record</h1>
-        <p>Central database tracking executive, legislative, and departmental assignments across communities including DUSA, USAR, and RxUSA.</p>
-        <p>Contact via Discord: Intel_dream or Email: dreamoversight1@gmail.com</p>
-    </div>
+<header class="hero">
+  <h1>DreamOversight — Federal Service Record</h1>
+  <p>Central database tracking executive, legislative, and departmental assignments across communities including DUSA, USAR, and RxUSA.</p>
+  <p>Contact via Discord: Intel_dream or Email: dreamoversight1@gmail.com</p>
+</header>
 
-    <div class="filter-controls">
-        <span class="filter-label">Filter Status:</span>
-        <button class="filter-btn active" onclick="filterRoles('all')">Show All</button>
-        <button class="filter-btn" onclick="filterRoles('current')">Current Roles</button>
-        <button class="filter-btn" onclick="filterRoles('former')">Former Roles</button>
-    </div>
+<div class="filter-controls" aria-label="Resume filters">
+  <span class="filter-label">Filter Status:</span>
+  <button class="filter-btn active" data-filter="all">Show All</button>
+  <button class="filter-btn" data-filter="current">Current Roles</button>
+  <button class="filter-btn" data-filter="former">Former Roles</button>
+</div>
 
-    <div class="resume-container">
+<main class="resume-container">
+  <section class="resume-section" id="dusa-section">
+    <h2>DUSA Service Record</h2>
+    <div id="dusa-roles"></div>
+    <div class="empty-message" id="dusa-empty">No roles match this filter.</div>
+  </section>
 
-        <div class="resume-section" id="dusa-section">
-            <h2>DUSA Service Record</h2>
+  <section class="resume-section" id="usar-section">
+    <h2>USAR Service Record</h2>
+    <div id="usar-roles"></div>
+    <div class="empty-message" id="usar-empty">No roles match this filter.</div>
+  </section>
 
-            <div class="role-wrapper" data-status="current">
-                <div class="role-item">
-                    <div class="role-title-group">
-                        <span class="role-title">Group Ownership</span>
-                    </div>
-                    <span class="badge current">Current</span>
-                </div>
-            </div>
-            
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item">
-                    <div class="role-title-group">
-                        <span class="role-title">President of the United States</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-            </div>
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item">
-                    <div class="role-title-group">
-                        <span class="role-title">Vice President of the United States</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-            </div>
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item">
-                    <div class="role-title-group">
-                        <span class="role-title">Secretary of Homeland Security</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-            </div>
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item">
-                    <div class="role-title-group">
-                        <span class="role-title">Secretary of State</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-            </div>
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item">
-                    <div class="role-title-group">
-                        <span class="role-title">OUSN Ambassador</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-            </div>
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item">
-                    <div class="role-title-group">
-                        <span class="role-title">Chief of Staff of the Secretary of State</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-            </div>
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item">
-                    <div class="role-title-group">
-                        <span class="role-title">Provost Marshal</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-            </div>
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item">
-                    <div class="role-title-group">
-                        <span class="role-title">Community Engagement Team</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-            </div>
-        </div>
+  <section class="resume-section" id="rxusa-section">
+    <h2>RxUSA Service Record</h2>
+    <div id="rxusa-roles"></div>
+    <div class="empty-message" id="rxusa-empty">No roles match this filter.</div>
+  </section>
+</main>
 
-        <div class="resume-section" id="usar-section">
-            <h2>USAR Service Record</h2>
+<script>
+/* =========================================================
+   EDIT YOUR RESUME HERE
+   Add, remove, or update role objects in this section.
+   status must be either "current" or "former".
+   ========================================================= */
+const resumeData = {
+  DUSA: [
+    { title: "Group Ownership", status: "current" },
+    { title: "President of the United States", status: "former" },
+    { title: "Vice President of the United States", status: "former" },
+    { title: "Secretary of Homeland Security", status: "former" },
+    { title: "Secretary of State", status: "former" },
+    { title: "OUSN Ambassador", status: "former" },
+    { title: "Chief of Staff of the Secretary of State", status: "former" },
+    { title: "Provost Marshal", status: "former" },
+    { title: "Community Engagement Team", status: "former" }
+  ],
 
- <div class="role-wrapper" data-status="current">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">President Pro Tempore of the United States Senate</span>
-                    </div>
-                    <span class="badge current">Current</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> Aug. 2nd 2026 - Current</div>
-                </div>
-            </div>
+  USAR: [
+    {
+      title: "President Pro Tempore of the United States Senate",
+      status: "current",
+      duration: "Aug. 2nd 2026 - Current"
+    },
+    {
+      title: "Clerk of the House of Representatives",
+      status: "current",
+      duration: "Jul. 12th 2026 - Current"
+    },
+    {
+      title: "Trial Moderator",
+      status: "former",
+      duration: "Jul. 25th 2026 - Aug. 2nd 2026"
+    },
+    {
+      title: "Senator for Colorado",
+      status: "current",
+      duration: "Jul. 5th 2026 - Current",
+      committees: [
+        "Armed Services & Vet. Affairs",
+        "Foreign Relations",
+        "Rules Administration & Ethics",
+        "Judiciary & Civil Affairs"
+      ]
+    },
+    {
+      title: "Senate Majority Leader",
+      status: "former",
+      duration: "Jul. 5th 2026 - Aug. 2nd 2026",
+      caucus: "Progressive"
+    },
+    {
+      title: "Deputy Clerk of the House of Representatives",
+      status: "former",
+      duration: "Jul. 5th 2026 - Jul. 12th 2026"
+    },
+    {
+      title: "Master Patrol Officer, Metropolitan Police Dept.",
+      status: "current",
+      duration: "Jul. 1st 2026 - Current"
+    },
+    {
+      title: "Assistant Director, Secret Service Emergency Response Team",
+      status: "former",
+      duration: "Jul. 24th 2026 - Aug. 2nd 2026"
+    },
+    {
+      title: "Sergeant/2IC, Secret Service Emergency Response Team",
+      status: "former",
+      duration: "Jul. 7th 2026 - Jul. 24th 2026"
+    },
+    {
+      title: "Chief of Staff of the Office of the President Pro Tempore of the Senate",
+      status: "former",
+      duration: "Sep. 28th 2025 - Oct. 7th 2025"
+    },
+    {
+      title: "Chief of Staff of the Office of the Under Secretary of Defense for Personnel, Readiness & Policy",
+      status: "former",
+      duration: "Oct. 8th 2025 - Nov. 16th 2025"
+    },
+    {
+      title: "Assistant Secretary of Homeland Security for Public Affairs",
+      status: "former",
+      duration: "Oct. 23rd 2025 - Mar. 29th 2026"
+    },
+    {
+      title: "Under Secretary of Defense for Policy",
+      status: "former",
+      duration: "Nov. 16th 2025 - Nov. 29th 2025"
+    },
+    {
+      title: "Under Secretary of Defense for Personnel & Readiness",
+      status: "former",
+      duration: "Nov. 29th 2025 - May. 7th 2026",
+      awards: [
+        "Department of Defense Distinguished Civilian Service Award"
+      ]
+    },
+    {
+      title: "Principal Deputy Inspector General for the Department of Homeland Security",
+      status: "former",
+      duration: "Mar. 29th 2026 - May. 7th 2026"
+    },
+    {
+      title: "Acting Inspector General for the Department of Homeland Security",
+      status: "former",
+      duration: "Mar. 30th 2026 - May. 7th 2026"
+    },
+    {
+      title: "Representative for Colorado's 1st",
+      status: "former",
+      duration: "May. 8th 2026 - Jul. 5th 2026"
+    },
+    {
+      title: "House Chair of the Reform Caucus",
+      status: "former",
+      duration: "Mar. 8th 2026 - May. 16th 2026"
+    },
+    {
+      title: "House Majority Whip",
+      status: "former",
+      duration: "May. 16th 2026 - May. 20th 2026"
+    },
+    {
+      title: "House Majority Leader",
+      status: "former",
+      duration: "May. 20th 2026 - Jul. 4th 2026"
+    },
+    {
+      title: "Speaker Pro Tempore of the House",
+      status: "former",
+      duration: "May. 11th 2026 - Jun. 23rd 2026"
+    },
+    {
+      title: "Assistant Senate Sergeant at Arms",
+      status: "former",
+      duration: "Jul. 1st 2026 - Jul. 5th 2026"
+    },
+    {
+      title: "Senate Executive Clerk",
+      status: "former",
+      duration: "Jul. 1st 2026 - Jul. 5th 2026"
+    },
+    {
+      title: "Secretary of the United States Senate",
+      status: "current",
+      duration: "Aug. 8th 2026 - Current"
+    }
+  ],
 
-             <div class="role-wrapper" data-status="current">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">Clerk of the House of Representatives</span>
-                    </div>
-                    <span class="badge current">Current</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> Jul. 12th 2026 - Current</div>
-                </div>
-            </div>
-            
-          <div class="role-wrapper" data-status="former">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">Trial Moderator</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> Jul. 25th 2026 - Aug. 2nd 2026</div>
-                </div>
-            </div>
+  RxUSA: [
+    {
+      title: "License Officer, Department of Commerce",
+      status: "current",
+      duration: "Jul. 6th 2026 - Current",
+      accomplishments: [
+        "Processing official business and commerce licensing."
+      ]
+    }
+  ]
+};
 
+let activeFilter = "all";
 
-            
-            <div class="role-wrapper" data-status="current">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">Senator for Colorado</span>
-                    </div>
-                    <span class="badge current">Current</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content">
-                        <strong>Duration:</strong> Jul. 5th 2026 - Current<br>
-                        <strong>Committees:</strong> Armed Services & Vet. Affairs, Foregin Relations, Rules Administration & Ethics, Judiciary & Civil Affairs
-                    </div>
-                </div>
-            </div>
+function hasDetails(role) {
+  return Boolean(
+    role.duration ||
+    role.committees?.length ||
+    role.caucus ||
+    role.awards?.length ||
+    role.accomplishments?.length
+  );
+}
 
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">Senate Majority Leader</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content">
-                        <strong>Duration:</strong> Jul. 5th 2026 - Current<br>
-                        <strong>Caucus:</strong> Progressive Aug. 2nd 2026
-                    </div>
-                </div>
-            </div>
+function addText(container, label, value) {
+  const line = document.createElement("div");
+  const strong = document.createElement("strong");
+  strong.textContent = label + " ";
+  line.appendChild(strong);
+  line.appendChild(document.createTextNode(value));
+  container.appendChild(line);
+}
 
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">Deputy Clerk of the House of Representatives</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> Jul. 5th 2026 - Jul. 12th 2026</div>
-                </div>
-            </div>
+function addList(container, label, items) {
+  const heading = document.createElement("div");
+  const strong = document.createElement("strong");
+  strong.textContent = label;
+  heading.appendChild(strong);
+  container.appendChild(heading);
 
-            <div class="role-wrapper" data-status="current">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">Master Patrol Officer, Metropolitan Police Dept.</span>
-                    </div>
-                    <span class="badge current">Current</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> Jul. 1st 2026 - Current</div>
-                </div>
-            </div>
+  const list = document.createElement("ul");
+  items.forEach(item => {
+    const listItem = document.createElement("li");
+    listItem.textContent = item;
+    list.appendChild(listItem);
+  });
+  container.appendChild(list);
+}
 
- <div class="role-wrapper" data-status="former">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">Assistant Director, Secrect Service Emergency Responce Team</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> Jul. 24th 2026 - Aug. 2nd 2026</div>
-                </div>
-            </div>
-            
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">Sergeant/2IC, Secrect Service Emergency Responce Team</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> Jul. 7th 2026 - Jul. 24th 2026</div>
-                </div>
-            </div>
-            
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">Chief of Staff of the Office of the President Pro Tempore of the Senate</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> Sep. 28th 2025 - Oct. 7th 2025</div>
-                </div>
-            </div>
+function createRoleCard(role) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "role-wrapper";
+  wrapper.dataset.status = role.status;
 
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">Chief of Staff of the Office of the Under Secretary of Defense for Personnel, Readiness & Policy</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> Oct. 8th 2025 - Nov. 16th 2025</div>
-                </div>
-            </div>
+  const roleItem = document.createElement("div");
+  roleItem.className = "role-item";
 
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">Assistant Secretary of Homeland Security for Public Affairs</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> Oct. 23rd 2025 - Mar. 29th 2026</div>
-                </div>
-            </div>
+  const titleGroup = document.createElement("div");
+  titleGroup.className = "role-title-group";
 
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">Under Secretary of Defense for Policy</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> Nov. 16th 2025 - Nov. 29th 2025</div>
-                </div>
-            </div>
+  const detailsAvailable = hasDetails(role);
 
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">Under Secretary of Defense for Personnel & Readiness</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content">
-                        <strong>Duration:</strong> Nov. 29th 2025 - May. 7th 2026<br>
-                        <strong>Awards:</strong>
-                        <ul>
-                            <li>Department of Defense Distinguished Civilian Service Award</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+  if (detailsAvailable) {
+    roleItem.classList.add("clickable");
+    roleItem.setAttribute("role", "button");
+    roleItem.setAttribute("tabindex", "0");
+    roleItem.setAttribute("aria-expanded", "false");
 
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">Principal Deputy Inspector General for the Department of Homeland Security</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> Mar. 29th 2026 - May. 7th 2026</div>
-                </div>
-            </div>
+    const arrow = document.createElement("span");
+    arrow.className = "role-arrow";
+    arrow.textContent = "▶";
+    titleGroup.appendChild(arrow);
+  }
 
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">Acting Inspector General for the Department of Homeland Security</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content">
-                        <strong>Duration:</strong> Mar. 30th 2026 - May. 7th 2026</div>
-                </div>
-            </div>
+  const title = document.createElement("span");
+  title.className = "role-title";
+  title.textContent = role.title;
+  titleGroup.appendChild(title);
 
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">Representative for Colorado's 1st</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> May. 8th 2026 - Jul. 5th 2026</div>
-                </div>
-            </div>
+  const badge = document.createElement("span");
+  badge.className = `badge ${role.status}`;
+  badge.textContent = role.status === "current" ? "Current" : "Former";
 
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">House Chair of the Reform Caucus</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> Mar. 8th 2026 - May. 16th 2026</div>
-                </div>
-            </div>
+  roleItem.appendChild(titleGroup);
+  roleItem.appendChild(badge);
+  wrapper.appendChild(roleItem);
 
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">House Majority Whip</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> May. 16th 2026 - May. 20th 2026</div>
-                </div>
-            </div>
+  if (detailsAvailable) {
+    const details = document.createElement("div");
+    details.className = "role-details";
 
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">House Majority Leader</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> May. 20th 2026 - Jul. 4th 2026</div>
-                </div>
-            </div>
+    const content = document.createElement("div");
+    content.className = "role-details-content";
 
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">Speaker Pro Tempore of the House</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> May. 11th 2026 - Jun. 23rd 2026</div>
-                </div>
-            </div>
+    if (role.duration) addText(content, "Duration:", role.duration);
+    if (role.caucus) addText(content, "Caucus:", role.caucus);
+    if (role.committees?.length) addList(content, "Committees:", role.committees);
+    if (role.awards?.length) addList(content, "Awards:", role.awards);
+    if (role.accomplishments?.length) addList(content, "Key Accomplishments:", role.accomplishments);
 
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">Assistant Senate Sergeant at Arms</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> Jul. 1st 2026 - Jul. 5th 2026</div>
-                </div>
-            </div>
+    details.appendChild(content);
+    wrapper.appendChild(details);
 
-            <div class="role-wrapper" data-status="former">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">Senate Executive Clerk</span>
-                    </div>
-                    <span class="badge former">Former</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> Jul. 1st 2026 - Jul. 5th 2026</div>
-                </div>
-            </div>
-        </div>
+    const toggle = () => toggleDetails(roleItem);
+    roleItem.addEventListener("click", toggle);
+    roleItem.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        toggle();
+      }
+    });
+  }
 
-        <div class="resume-section" id="rxusa-section">
-            <h2>RxUSA Service Record</h2>
-            
-            <div class="role-wrapper" data-status="current">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">License Officer, Department of Commerce</span>
-                    </div>
-                    <span class="badge current">Current</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content">
-                        <strong>Duration:</strong> Jul. 6th 2026 - Current<br>
-                        <strong>Key Accomplishments:</strong>
-                        <ul>
-                            <li>Processing official business and commerce licensing.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+  return wrapper;
+}
 
-         <div class="role-wrapper" data-status="current">
-                <div class="role-item clickable" onclick="toggleDetails(this)">
-                    <div class="role-title-group">
-                        <span class="role-arrow">▶</span>
-                        <span class="role-title">Secretary of the United States Senate</span>
-                    </div>
-                    <span class="badge current">Current</span>
-                </div>
-                <div class="role-details">
-                    <div class="role-details-content"><strong>Duration:</strong> Aug. 8th 2026 - Current</div>
-                </div>
-            </div>
-        </div>
+function renderResume() {
+  const sections = {
+    DUSA: "dusa",
+    USAR: "usar",
+    RxUSA: "rxusa"
+  };
 
-    </div>
+  Object.entries(sections).forEach(([sectionName, sectionId]) => {
+    const container = document.getElementById(`${sectionId}-roles`);
+    const emptyMessage = document.getElementById(`${sectionId}-empty`);
+    container.innerHTML = "";
 
-    <script>
-        // Interactive Accordion Toggle (Only fires on elements with the 'clickable' class)
-        function toggleDetails(element) {
-            const wrapper = element.parentElement;
-            const details = element.nextElementSibling;
-            
-            wrapper.classList.toggle('active');
-            
-            if (wrapper.classList.contains('active')) {
-                details.style.maxHeight = details.scrollHeight + "px";
-            } else {
-                details.style.maxHeight = "0px";
-            }
-        }
+    const roles = resumeData[sectionName] || [];
+    roles.forEach(role => container.appendChild(createRoleCard(role)));
 
-        // Dropdown Filtering System
-        function filterRoles(status) {
-            const buttons = document.querySelectorAll('.filter-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+    emptyMessage.style.display = roles.length ? "none" : "block";
+  });
 
-            const wrappers = document.querySelectorAll('.role-wrapper');
-            
-            wrappers.forEach(wrapper => {
-                // Collapse open cards when switching views safely
-                wrapper.classList.remove('active');
-                const detailBlock = wrapper.querySelector('.role-details');
-                if (detailBlock) detailBlock.style.maxHeight = "0px";
+  filterRoles(activeFilter);
+}
 
-                if (status === 'all') {
-                    wrapper.classList.remove('hidden');
-                } else {
-                    if (wrapper.getAttribute('data-status') === status) {
-                        wrapper.classList.remove('hidden');
-                    } else {
-                        wrapper.classList.add('hidden');
-                    }
-                }
-            });
-        }
-    </script>
+function toggleDetails(roleItem) {
+  const wrapper = roleItem.parentElement;
+  const details = roleItem.nextElementSibling;
+  if (!details) return;
+
+  const isActive = wrapper.classList.toggle("active");
+  roleItem.setAttribute("aria-expanded", String(isActive));
+  details.style.maxHeight = isActive ? details.scrollHeight + "px" : "0px";
+}
+
+function filterRoles(status) {
+  activeFilter = status;
+
+  document.querySelectorAll(".filter-btn").forEach(button => {
+    button.classList.toggle("active", button.dataset.filter === status);
+  });
+
+  document.querySelectorAll(".resume-section").forEach(section => {
+    const wrappers = section.querySelectorAll(".role-wrapper");
+    const emptyMessage = section.querySelector(".empty-message");
+    let visibleCount = 0;
+
+    wrappers.forEach(wrapper => {
+      const matches = status === "all" || wrapper.dataset.status === status;
+      wrapper.classList.toggle("hidden", !matches);
+
+      if (matches) visibleCount++;
+
+      wrapper.classList.remove("active");
+      const details = wrapper.querySelector(".role-details");
+      const roleItem = wrapper.querySelector(".role-item");
+
+      if (details) details.style.maxHeight = "0px";
+      if (roleItem) roleItem.setAttribute("aria-expanded", "false");
+    });
+
+    if (emptyMessage) {
+      emptyMessage.style.display = visibleCount === 0 ? "block" : "none";
+    }
+  });
+}
+
+document.querySelectorAll(".filter-btn").forEach(button => {
+  button.addEventListener("click", () => filterRoles(button.dataset.filter));
+});
+
+renderResume();
+</script>
 </body>
 </html>
