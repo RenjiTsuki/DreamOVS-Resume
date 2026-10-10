@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -292,8 +293,9 @@ nav {
   <h1>DreamOversight — Federal Service Record</h1>
 
   <p>
-    Central database tracking executive, legislative, and departmental
-    assignments across communities including DUSA, USAR, and RxUSA.
+    Central database tracking executive, legislative, administrative,
+    and departmental assignments across communities including
+    DUSA, USAR, RxUSA, and CUSA.
   </p>
 
   <p>
@@ -319,32 +321,38 @@ nav {
 
 <main class="resume-container">
 
+  <!-- DUSA SERVICE RECORD -->
   <section class="resume-section" id="dusa-section">
     <h2>DUSA Service Record</h2>
-
     <div id="dusa-roles"></div>
-
     <div class="empty-message" id="dusa-empty">
       No roles match this filter.
     </div>
   </section>
 
+  <!-- USAR SERVICE RECORD -->
   <section class="resume-section" id="usar-section">
     <h2>USAR Service Record</h2>
-
     <div id="usar-roles"></div>
-
     <div class="empty-message" id="usar-empty">
       No roles match this filter.
     </div>
   </section>
 
+  <!-- RxUSA SERVICE RECORD -->
   <section class="resume-section" id="rxusa-section">
     <h2>RxUSA Service Record</h2>
-
     <div id="rxusa-roles"></div>
-
     <div class="empty-message" id="rxusa-empty">
+      No roles match this filter.
+    </div>
+  </section>
+
+  <!-- CUSA SERVICE RECORD -->
+  <section class="resume-section" id="cusa-section">
+    <h2>CUSA Service Record</h2>
+    <div id="cusa-roles"></div>
+    <div class="empty-message" id="cusa-empty">
       No roles match this filter.
     </div>
   </section>
@@ -409,11 +417,13 @@ const resumeData = {
   ],
 
   USAR: [
-     {
+
+    {
       title: "Vice President of the United States",
       status: "current",
       duration: "October 3rd, 2026 - Current"
     },
+
     {
       title: "Vice-President Elect",
       status: "former"
@@ -424,11 +434,13 @@ const resumeData = {
       status: "former",
       duration: "Aug. 2nd 2026 - Sep. 13th 2026"
     },
+
     {
       title: "Community Moderator",
       status: "former",
       duration: "Aug. 2nd 2026 - October 3rd, 2026"
     },
+
     {
       title: "Clerk of the House of Representatives",
       status: "former",
@@ -575,11 +587,12 @@ const resumeData = {
 
   RxUSA: [
 
-     {
+    {
       title: "Captain, Director of Naval Education & Training Command",
       status: "current",
-      duration: "Oct. 6th 2026 - Current",
+      duration: "Oct. 6th 2026 - Current"
     },
+
     {
       title: "License Officer, Department of Commerce",
       status: "current",
@@ -605,6 +618,30 @@ const resumeData = {
       title: "Secretary of the United States Senate",
       status: "former",
       duration: "Aug. 8th 2026 - Sep. 20th 2026"
+    }
+
+  ],
+
+  /* =======================================================
+     CUSA SERVICE RECORD
+     Replace these examples with your actual CUSA positions.
+     ======================================================= */
+
+  CUSA: [
+
+    {
+      title: "YOUR CUSA ROLE HERE",
+      status: "current",
+      duration: "Start Date - Current",
+      accomplishments: [
+        "Describe your responsibilities or accomplishments here."
+      ]
+    },
+
+    {
+      title: "YOUR FORMER CUSA ROLE HERE",
+      status: "former",
+      duration: "Start Date - End Date"
     }
 
   ]
@@ -643,16 +680,11 @@ function hasDetails(role) {
 function addText(container, label, value) {
 
   const line = document.createElement("div");
-
   const strong = document.createElement("strong");
 
   strong.textContent = label + " ";
-
   line.appendChild(strong);
-
-  line.appendChild(
-    document.createTextNode(value)
-  );
+  line.appendChild(document.createTextNode(value));
 
   container.appendChild(line);
 
@@ -666,13 +698,10 @@ function addText(container, label, value) {
 function addList(container, label, items) {
 
   const heading = document.createElement("div");
-
   const strong = document.createElement("strong");
 
   strong.textContent = label;
-
   heading.appendChild(strong);
-
   container.appendChild(heading);
 
   const list = document.createElement("ul");
@@ -680,9 +709,7 @@ function addList(container, label, items) {
   items.forEach(item => {
 
     const listItem = document.createElement("li");
-
     listItem.textContent = item;
-
     list.appendChild(listItem);
 
   });
@@ -699,61 +726,39 @@ function addList(container, label, items) {
 function createRoleCard(role) {
 
   const wrapper = document.createElement("div");
-
   wrapper.className = "role-wrapper";
-
   wrapper.dataset.status = role.status;
 
-
   const roleItem = document.createElement("div");
-
   roleItem.className = "role-item";
 
-
   const titleGroup = document.createElement("div");
-
   titleGroup.className = "role-title-group";
 
-
   const detailsAvailable = hasDetails(role);
-
 
   if (detailsAvailable) {
 
     roleItem.classList.add("clickable");
-
     roleItem.setAttribute("role", "button");
-
     roleItem.setAttribute("tabindex", "0");
-
-    roleItem.setAttribute(
-      "aria-expanded",
-      "false"
-    );
-
+    roleItem.setAttribute("aria-expanded", "false");
 
     const arrow = document.createElement("span");
-
     arrow.className = "role-arrow";
-
     arrow.textContent = "▶";
 
     titleGroup.appendChild(arrow);
 
   }
 
-
   const title = document.createElement("span");
-
   title.className = "role-title";
-
   title.textContent = role.title;
 
   titleGroup.appendChild(title);
 
-
   const badge = document.createElement("span");
-
   badge.className = `badge ${role.status}`;
 
   badge.textContent =
@@ -761,125 +766,55 @@ function createRoleCard(role) {
       ? "Current"
       : "Former";
 
-
   roleItem.appendChild(titleGroup);
-
   roleItem.appendChild(badge);
-
   wrapper.appendChild(roleItem);
-
 
   if (detailsAvailable) {
 
     const details = document.createElement("div");
-
     details.className = "role-details";
 
-
     const content = document.createElement("div");
-
     content.className = "role-details-content";
 
-
     if (role.duration) {
-
-      addText(
-        content,
-        "Duration:",
-        role.duration
-      );
-
+      addText(content, "Duration:", role.duration);
     }
-
 
     if (role.caucus) {
-
-      addText(
-        content,
-        "Caucus:",
-        role.caucus
-      );
-
+      addText(content, "Caucus:", role.caucus);
     }
 
-
-    if (
-      role.committees &&
-      role.committees.length
-    ) {
-
-      addList(
-        content,
-        "Committees:",
-        role.committees
-      );
-
+    if (role.committees && role.committees.length) {
+      addList(content, "Committees:", role.committees);
     }
 
-
-    if (
-      role.awards &&
-      role.awards.length
-    ) {
-
-      addList(
-        content,
-        "Awards:",
-        role.awards
-      );
-
+    if (role.awards && role.awards.length) {
+      addList(content, "Awards:", role.awards);
     }
 
-
-    if (
-      role.accomplishments &&
-      role.accomplishments.length
-    ) {
-
-      addList(
-        content,
-        "Key Accomplishments:",
-        role.accomplishments
-      );
-
+    if (role.accomplishments && role.accomplishments.length) {
+      addList(content, "Key Accomplishments:", role.accomplishments);
     }
-
 
     details.appendChild(content);
-
     wrapper.appendChild(details);
 
+    const toggle = () => toggleDetails(roleItem);
 
-    const toggle = () =>
-      toggleDetails(roleItem);
+    roleItem.addEventListener("click", toggle);
 
+    roleItem.addEventListener("keydown", event => {
 
-    roleItem.addEventListener(
-      "click",
-      toggle
-    );
-
-
-    roleItem.addEventListener(
-      "keydown",
-      event => {
-
-        if (
-          event.key === "Enter" ||
-          event.key === " "
-        ) {
-
-          event.preventDefault();
-
-          toggle();
-
-        }
-
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        toggle();
       }
-    );
+
+    });
 
   }
-
 
   return wrapper;
 
@@ -893,55 +828,28 @@ function createRoleCard(role) {
 function renderResume() {
 
   const sections = {
-
     DUSA: "dusa",
-
     USAR: "usar",
-
-    RxUSA: "rxusa"
-
+    RxUSA: "rxusa",
+    CUSA: "cusa"
   };
 
+  Object.entries(sections).forEach(([sectionName, sectionId]) => {
 
-  Object.entries(sections).forEach(
-    ([sectionName, sectionId]) => {
+    const container = document.getElementById(`${sectionId}-roles`);
+    const emptyMessage = document.getElementById(`${sectionId}-empty`);
 
-      const container =
-        document.getElementById(
-          `${sectionId}-roles`
-        );
+    container.innerHTML = "";
 
+    const roles = resumeData[sectionName] || [];
 
-      const emptyMessage =
-        document.getElementById(
-          `${sectionId}-empty`
-        );
+    roles.forEach(role => {
+      container.appendChild(createRoleCard(role));
+    });
 
+    emptyMessage.style.display = roles.length ? "none" : "block";
 
-      container.innerHTML = "";
-
-
-      const roles =
-        resumeData[sectionName] || [];
-
-
-      roles.forEach(role => {
-
-        container.appendChild(
-          createRoleCard(role)
-        );
-
-      });
-
-
-      emptyMessage.style.display =
-        roles.length
-          ? "none"
-          : "block";
-
-    }
-  );
-
+  });
 
   filterRoles(activeFilter);
 
@@ -954,26 +862,14 @@ function renderResume() {
 
 function toggleDetails(roleItem) {
 
-  const wrapper =
-    roleItem.parentElement;
-
-
-  const details =
-    roleItem.nextElementSibling;
-
+  const wrapper = roleItem.parentElement;
+  const details = roleItem.nextElementSibling;
 
   if (!details) return;
 
+  const isActive = wrapper.classList.toggle("active");
 
-  const isActive =
-    wrapper.classList.toggle("active");
-
-
-  roleItem.setAttribute(
-    "aria-expanded",
-    String(isActive)
-  );
-
+  roleItem.setAttribute("aria-expanded", String(isActive));
 
   details.style.maxHeight =
     isActive
@@ -991,105 +887,55 @@ function filterRoles(status) {
 
   activeFilter = status;
 
+  document.querySelectorAll(".filter-btn").forEach(button => {
 
-  document
-    .querySelectorAll(".filter-btn")
-    .forEach(button => {
+    button.classList.toggle(
+      "active",
+      button.dataset.filter === status
+    );
 
-      button.classList.toggle(
-        "active",
-        button.dataset.filter === status
-      );
+  });
 
-    });
+  document.querySelectorAll(".resume-section").forEach(section => {
 
+    const wrappers = section.querySelectorAll(".role-wrapper");
+    const emptyMessage = section.querySelector(".empty-message");
 
-  document
-    .querySelectorAll(".resume-section")
-    .forEach(section => {
+    let visibleCount = 0;
 
-      const wrappers =
-        section.querySelectorAll(
-          ".role-wrapper"
-        );
+    wrappers.forEach(wrapper => {
 
+      const matches =
+        status === "all" ||
+        wrapper.dataset.status === status;
 
-      const emptyMessage =
-        section.querySelector(
-          ".empty-message"
-        );
+      wrapper.classList.toggle("hidden", !matches);
 
+      if (matches) {
+        visibleCount++;
+      }
 
-      let visibleCount = 0;
+      wrapper.classList.remove("active");
 
+      const details = wrapper.querySelector(".role-details");
+      const roleItem = wrapper.querySelector(".role-item");
 
-      wrappers.forEach(wrapper => {
+      if (details) {
+        details.style.maxHeight = "0px";
+      }
 
-        const matches =
-          status === "all" ||
-          wrapper.dataset.status === status;
-
-
-        wrapper.classList.toggle(
-          "hidden",
-          !matches
-        );
-
-
-        if (matches) {
-
-          visibleCount++;
-
-        }
-
-
-        wrapper.classList.remove(
-          "active"
-        );
-
-
-        const details =
-          wrapper.querySelector(
-            ".role-details"
-          );
-
-
-        const roleItem =
-          wrapper.querySelector(
-            ".role-item"
-          );
-
-
-        if (details) {
-
-          details.style.maxHeight =
-            "0px";
-
-        }
-
-
-        if (roleItem) {
-
-          roleItem.setAttribute(
-            "aria-expanded",
-            "false"
-          );
-
-        }
-
-      });
-
-
-      if (emptyMessage) {
-
-        emptyMessage.style.display =
-          visibleCount === 0
-            ? "block"
-            : "none";
-
+      if (roleItem) {
+        roleItem.setAttribute("aria-expanded", "false");
       }
 
     });
+
+    if (emptyMessage) {
+      emptyMessage.style.display =
+        visibleCount === 0 ? "block" : "none";
+    }
+
+  });
 
 }
 
@@ -1098,22 +944,13 @@ function filterRoles(status) {
    FILTER BUTTONS
    ========================================================= */
 
-document
-  .querySelectorAll(".filter-btn")
-  .forEach(button => {
+document.querySelectorAll(".filter-btn").forEach(button => {
 
-    button.addEventListener(
-      "click",
-      () => {
-
-        filterRoles(
-          button.dataset.filter
-        );
-
-      }
-    );
-
+  button.addEventListener("click", () => {
+    filterRoles(button.dataset.filter);
   });
+
+});
 
 
 /* =========================================================
