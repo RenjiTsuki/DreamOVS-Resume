@@ -357,6 +357,15 @@ nav {
     </div>
   </section>
 
+ <!-- USM 1950's SERVICE RECORD -->
+  <section class="resume-section" id="1950-section">
+    <h2>USM 1950's Service Record</h2>
+    <div id="1950-roles"></div>
+    <div class="empty-message" id="1950-empty">
+      No roles match this filter.
+    </div>
+  </section>
+  
 </main>
 
 <script>
@@ -783,7 +792,17 @@ const resumeData = {
       status: "former"
     }
 
-  ]
+  ],
+
+   1950: [
+   {
+      title: "Rear Adm, Assistant Judge Advocate General for the Navy",
+      status: "current",
+      duration: "Oct. 11th 2026 - Current"
+    }
+
+  ],
+
 
 };
 
@@ -970,7 +989,8 @@ function renderResume() {
     DUSA: "dusa",
     USAR: "usar",
     RxUSA: "rxusa",
-    CUSA: "cusa"
+    CUSA: "cusa",
+    USM1950: "1950"
   };
 
   Object.entries(sections).forEach(([sectionName, sectionId]) => {
